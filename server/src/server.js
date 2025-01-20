@@ -11,6 +11,7 @@ const app = express();
 
 // middlewares
 app.use(morgan("dev"));
+app.use(express.json());
 // use routes
 app.use(taskRoutes);
 
