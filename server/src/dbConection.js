@@ -1,9 +1,10 @@
-import { Pool } from "pg";
+import pg from "pg";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-new Pool({
+// database conection
+const pool = new pg.Pool({
   // default user postgres
 
   user: process.env.DB_USER,
@@ -12,3 +13,5 @@ new Pool({
   port: process.env.DB_PORT,
   database: process.env.DB_NAME,
 });
+
+export default pool;
