@@ -14,12 +14,25 @@ export const createTask = async (req, res) => {
   // missing validation of data
   const { title, description } = req.body;
 
+  console.log("Request body:", req.body);
+
   // sql consult using palceholders to avoid sql inyection
-  pool.query("INSERT INTO task(title, description) VALUES($1,$2)", [
-    title,
-    description,
-  ]);
-  res.send("creating a task");
+  try {
+    // Perform SQL insert query using placeholders
+    const result = await pool.query(
+      "INSERT INTO task (title, description) VALUES ($1, $2) RETURNING *",
+      [title, description]
+    );
+
+    // Send a response with the newly created task
+    return res
+      .status(201)
+      .json({ message: "Task created successfully", task: result.rows[0] });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Database error", details: error.message });
+  }
 };
 
 export const deleteTask = async (req, res) => {
