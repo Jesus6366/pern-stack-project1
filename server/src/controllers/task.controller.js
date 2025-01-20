@@ -3,7 +3,13 @@ import pool from "../dbConection.js";
 pool;
 
 export const getAllTasks = async (req, res) => {
-  res.send("retriving the list of tasks");
+  try {
+    const result = await pool.query("SELECT * FROM task");
+
+    return res.status(200).json(result.rows);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
 };
 
 export const getOneTask = async (req, res) => {
