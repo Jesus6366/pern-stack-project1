@@ -19,6 +19,6 @@ router.post("/api/tasks", validateCreateTask, createTask);
 
 router.delete("/api/tasks/:id", deleteTask);
 
-router.put("/api/tasks/:id", validateCreateTask, updateTask);
+router.put("/api/tasks/:id", updateTask);
 
 export default router;

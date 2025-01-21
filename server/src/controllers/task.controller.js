@@ -87,5 +87,63 @@ export const deleteTask = async (req, res) => {
 };
 
 export const updateTask = async (req, res) => {
-  res.send("updating a task");
+  const id = parseInt(req.params.id);
+
+  // validation of id
+  if (!id && typeof id !== Number) {
+    return res
+      .status(400)
+      .json({ message: "Id must exist and has to be a number" });
+  }
+
+  const { title, description } = req.body;
+
+  if (!title && !description) {
+    return res.status(400).json({
+      message: "At least one of 'title' or 'description' must be provided",
+    });
+  }
+
+  try {
+    // dinamic arrays to update
+    const updates = [];
+    const values = [];
+
+    let index = 1;
+
+    if (title) {
+      updates.push(`title = $${index++}`);
+      values.push(title);
+    }
+
+    if (description) {
+      updates.push(`description= $${index++}`);
+      values.push(description);
+    }
+
+    // Add the ID as the last parameter for the WHERE clause
+    values.push(id);
+
+    // update query
+    console.log(
+      `UPDATE task SET ${updates.join(",")} WHERE id = $${index}`,
+      values
+    );
+
+    const result = await pool.query(
+      `UPDATE task SET ${updates.join(",")} WHERE id = $${index} RETURNING *`,
+      values
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    res.status(500).json({
+      message: "An error occurred while updating the task",
+      error: error.message,
+    });
+  }
 };
