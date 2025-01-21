@@ -13,7 +13,27 @@ export const getAllTasks = async (req, res) => {
 };
 
 export const getOneTask = async (req, res) => {
-  res.send("getting one task");
+  const id = parseInt(req.params.id);
+  // validation of id
+  if (!id && typeof id !== Number) {
+    return res
+      .status(400)
+      .json({ message: "id must not be empty and has to be a number" });
+  }
+  console.log(id);
+  try {
+    const foundTask = await pool.query("SELECT * FROM task WHERE id = $1", [
+      id,
+    ]);
+
+    if (foundTask.rows.length === 0) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    return res.status(200).json(foundTask.rows[0]);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 export const createTask = async (req, res) => {
