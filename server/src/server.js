@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import taskRoutes from "./routes/tasks.routes.js";
+import cors from "cors";
 
 dotenv.config(); // Load environment variables
 
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 
 // middlewares
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 // use routes
