@@ -62,7 +62,28 @@ export const createTask = async (req, res) => {
 };
 
 export const deleteTask = async (req, res) => {
-  res.send("deleting a task");
+  const id = parseInt(req.params.id);
+  // validation of id
+  if (!id && typeof id !== Number) {
+    return res
+      .status(400)
+      .json({ message: "id must not be empty and has to be a number" });
+  }
+
+  try {
+    const foundTaskToBeDeleted = await pool.query(
+      "DELETE FROM task WHERE id = $1",
+      [id]
+    );
+
+    if (foundTaskToBeDeleted.rowCount === 0) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 export const updateTask = async (req, res) => {
