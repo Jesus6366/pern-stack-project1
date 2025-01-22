@@ -12,7 +12,7 @@ const app = express();
 
 // middlewares
 app.use(cors());
-const cors = require("cors");
+
 app.use(
   cors({
     origin: "http://localhost:5173/", // O el dominio de tu frontend desplegado
