@@ -6,7 +6,7 @@ import cors from "cors";
 
 dotenv.config(); // Load environment variables
 
-const PORT = process.env.PORT || 8000;
+const port = process.env.PORT || 4000;
 
 const app = express();
 
@@ -26,4 +26,4 @@ app.use(express.json());
 // use routes
 app.use(taskRoutes);
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(port, () => console.log(`Server running on port ${port}`));
