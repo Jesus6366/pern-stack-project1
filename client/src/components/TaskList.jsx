@@ -14,8 +14,12 @@ const TaskList = () => {
   const [editingTaskId, setEditingTaskId] = useState(null); // Task-specific editing state
 
   const loadTasks = async () => {
+    console.log(import.meta.env.VITE_DB_API_BASE_URL);
+
     // fetch data from server
-    const response = await fetch(`${import.meta.env.DB_API_BASE_URL}api/tasks`);
+    const response = await fetch(
+      `${import.meta.env.VITE_DB_API_BASE_URL}api/tasks`
+    );
 
     // transform data into json
     const data = await response.json();
@@ -25,7 +29,7 @@ const TaskList = () => {
 
   const handleDelete = async (id) => {
     const response = await fetch(
-      `${import.meta.env.DB_API_BASE_URL}api/tasks/${id}`,
+      `${import.meta.env.VITE_DB_API_BASE_URL}api/tasks/${id}`,
       {
         method: "DELETE",
       }

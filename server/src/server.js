@@ -15,9 +15,12 @@ app.use(cors());
 
 app.use(
   cors({
-    origin: "http://localhost:5173/", // O el dominio de tu frontend desplegado
+    origin: "http://localhost:5173", // Cambia esto según tu dominio de frontend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
 );
+
 app.use(morgan("dev"));
 app.use(express.json());
 // use routes

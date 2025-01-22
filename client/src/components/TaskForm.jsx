@@ -24,7 +24,7 @@ const TaskForm = (e) => {
 
     // post request to send the data to api and database
     const response = await fetch(
-      `${import.meta.env.DB_API_BASE_URL}api/tasks`,
+      `${import.meta.env.VITE_DB_API_BASE_URL}api/tasks`,
       {
         headers: {
           "Content-Type": "application/json",
