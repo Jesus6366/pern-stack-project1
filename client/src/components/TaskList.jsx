@@ -44,8 +44,6 @@ const TaskList = () => {
   const handleSubmit = async (id) => {
     console.log(id);
 
-    console.log(task, "This is the data being send");
-
     // PUT request to update data
     const response = await fetch(`http://localhost:5000/api/tasks/${id}`, {
       headers: {
