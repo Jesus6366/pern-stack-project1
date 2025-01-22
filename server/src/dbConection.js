@@ -25,7 +25,7 @@ const ensureTaskTableExists = async () => {
   try {
     const client = await pool.connect(); // Get a connection from the pool
     await client.query(createTableQuery); // Run the query
-    console.log("Table 'task' is ready.");
+    console.log("Table 'task' is ready Connection to database succesfully.");
     client.release(); // Release the connection back to the pool
   } catch (error) {
     console.error("Error ensuring 'task' table exists:", error);
