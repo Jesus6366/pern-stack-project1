@@ -23,13 +23,16 @@ const TaskForm = (e) => {
     setLoading(true);
 
     // post request to send the data to api and database
-    const response = await fetch("http://localhost:5000/api/tasks", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify(task),
-    });
+    const response = await fetch(
+      `${import.meta.env.DB_API_BASE_URL}api/tasks`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(task),
+      }
+    );
     console.log(response);
 
     const data = await response.json();

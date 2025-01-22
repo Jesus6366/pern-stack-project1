@@ -15,7 +15,7 @@ const TaskList = () => {
 
   const loadTasks = async () => {
     // fetch data from server
-    const response = await fetch("http://localhost:5000/api/tasks");
+    const response = await fetch(`${import.meta.env.DB_API_BASE_URL}api/tasks`);
 
     // transform data into json
     const data = await response.json();
@@ -24,9 +24,12 @@ const TaskList = () => {
   };
 
   const handleDelete = async (id) => {
-    const response = await fetch(`http://localhost:5000/api/tasks/${id}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `${import.meta.env.DB_API_BASE_URL}api/tasks/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     console.log(response);
     loadTasks();
@@ -45,13 +48,16 @@ const TaskList = () => {
     console.log(id);
 
     // PUT request to update data
-    const response = await fetch(`http://localhost:5000/api/tasks/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "PUT",
-      body: JSON.stringify(task),
-    });
+    const response = await fetch(
+      `${import.meta.env.DB_API_BASE_URL}api/tasks/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PUT",
+        body: JSON.stringify(task),
+      }
+    );
     console.log(response);
 
     const data = await response.json();
