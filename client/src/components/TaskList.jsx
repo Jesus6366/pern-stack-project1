@@ -141,7 +141,7 @@ const TaskList = () => {
               <Button
                 variant="contained"
                 color="warning"
-                onClick={() => handleDelete(task.id)}
+                onClick={() => handleDelete(t.id)}
                 style={{ marginLeft: ".5rem" }}
               >
                 Delete
