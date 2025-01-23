@@ -7,6 +7,7 @@ import cors from "cors";
 dotenv.config(); // Load environment variables
 
 const port = process.env.PORT || 4000;
+const frontendURL = process.env.FRONTEND_URL;
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(cors());
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Cambia esto según tu dominio de frontend
+    origin: frontendURL, // Cambia esto según tu dominio de frontend
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
