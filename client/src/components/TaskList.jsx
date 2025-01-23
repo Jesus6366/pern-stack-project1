@@ -53,7 +53,7 @@ const TaskList = () => {
 
     // PUT request to update data
     const response = await fetch(
-      `${import.meta.env.DB_API_BASE_URL}api/tasks/${id}`,
+      `${import.meta.env.VITE_DB_API_BASE_URL}api/tasks/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
